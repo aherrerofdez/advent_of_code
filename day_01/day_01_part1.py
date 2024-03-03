@@ -29,3 +29,5 @@ for input_line in input_content:
 challenge_result = sum(calibration_values)
 
 print(challenge_result)
+
+# Solution: 55834

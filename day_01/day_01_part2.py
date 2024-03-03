@@ -16,12 +16,16 @@ for input_line in input_content:
     min_index = len(input_line)
     max_index = 0
 
+    # Check if any digit or spelled number is in the string
     for num in numbers:
         if num in input_line:
+
+            # Store the first digit or spelled number of the string in the first_digit_str variable
             if (min_index > input_line.find(num)):
                 min_index = input_line.find(num)
                 first_digit_str = num
 
+            # Store the last digit or spelled number of the string in the last_digit_str variable
             if max_index <= input_line.rfind(num):
                 max_index = input_line.rfind(num)
                 print
@@ -47,8 +51,8 @@ for input_line in input_content:
     calibration_val = first_digit*10 + last_digit
     calibration_values.append(calibration_val)
 
-print(calibration_values)
-
 challenge_result = sum(calibration_values)
 
 print(challenge_result)
+
+# Solution: 53221
