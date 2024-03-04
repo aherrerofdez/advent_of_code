@@ -1,33 +1,32 @@
-# Open file in reading mode
-input_file = open("day_01/input.txt", "r")
+# Open file
+with open("day_01/input.txt", "r") as input_file:
+    # Read each line as a string and remove newline characters
+    input_content = input_file.read().splitlines()
 
-# Read each line as a string and attach it to the content array
-input_content = input_file.readlines()
+# Initialize the variable to store the sum of calibration values
+challenge_result = 0
 
-calibration_values = []
+for input_line in input_content:
+    # Initialize variables to track the first and last digits
+    first_digit, last_digit = None, None
 
-for input_line in input_content: 
-    first_digit = 0
-    last_digit = 0
-
-    # Check all characters in the string from left to right until the first integer is found
+    # Find and set both the first and last digits
     for char in input_line:
-        if char.isnumeric():
-            first_digit = int(char)
-            break
-
-    # Check all characters in the string from right to left until the first integer is found
-    for char in input_line[::-1]:
-        if char.isnumeric():
+        if char.isdigit():
+            # Update the first digit if not set
+            if first_digit is None:
+                first_digit = int(char)
+            
+            # Update the last digit on each iteration
             last_digit = int(char)
-            break
-    
-    # Calibration value is found by combining the first digit and the last digit (in that order) to form a single two-digit number
-    calibration_val = first_digit*10 + last_digit
-    calibration_values.append(calibration_val)
 
-challenge_result = sum(calibration_values)
+    # Check if both digits are found before calculating the calibration value
+    if first_digit is not None and last_digit is not None:
+        # Calculate the calibration value and add it to the result
+        calibration_val = first_digit * 10 + last_digit
+        challenge_result += calibration_val
 
+# Print the final result
 print(challenge_result)
 
 # Solution: 55834
