@@ -1,13 +1,13 @@
-# Open file
+# Open the input file in read mode
 with open("day_03/input.txt", "r") as input_file:
-    # Read each line as a string and remove newline characters
+    # Read each line from the file, removing newline characters
     input_content = input_file.read().splitlines()
 
 # Initialize arrays and variables
-input_array = []
-symbols_index_array =[]
-max_i_index = len(input_content) - 1
-max_j_index = len(input_content[0]) - 1
+input_array = []  # Store the input characters as a matrix
+symbols_index_array = []  # Store the indices of symbol characters
+max_i_index = len(input_content) - 1  # Maximum row index
+max_j_index = len(input_content[0]) - 1  # Maximum column index
 
 # Create a matrix for the input characters
 for input_line in input_content:
@@ -21,24 +21,24 @@ for i, row in enumerate(input_array):
 
 # Function to obtain the whole number adjacent to a symbol character
 def get_whole_number(i, j):
-    num = input_array[i][j]
+    num = input_array[i][j]  # Initialize the number with the symbol itself
     temp_j = j
+    # Traverse left to get the complete number
     while temp_j > 0 and input_array[i][temp_j-1].isnumeric():
         num = input_array[i][temp_j-1] + num
         temp_j -= 1
+    # Traverse right to get the complete number
     while j < max_j_index and input_array[i][j+1].isnumeric():
         num = num + input_array[i][j+1]
         j += 1
     return num
 
 # Initialize sum of gear ratios
-# A gear is any * symbol that is adjacent to exactly two part numbers.
-# Its gear ratio is the result of multiplying those two numbers together.
 gear_ratios_sum = 0
 
 # Check characters around each symbol to locate neighboring numbers
-for symbol_index in symbols_index_array: 
-    part_numbers = []
+for symbol_index in symbols_index_array:
+    part_numbers = []  # Store the neighboring part numbers
 
     # Check adjacent cells for numeric values
     for adjacent_cell_i in range(-1, 2):
@@ -52,12 +52,13 @@ for symbol_index in symbols_index_array:
                 part_number = get_whole_number(num_i, num_j)
                 part_numbers.append(int(part_number))
 
+    # If there are exactly two unique part numbers adjacent to the symbol, calculate gear ratio
     if len(set(part_numbers)) == 2:
-       gear_numbers = list(set(part_numbers))
-       gear_ratio = gear_numbers[0] * gear_numbers[1]
-       gear_ratios_sum += gear_ratio
+        gear_numbers = list(set(part_numbers))
+        gear_ratio = gear_numbers[0] * gear_numbers[1]
+        gear_ratios_sum += gear_ratio
 
-# Print the final result
+# Print the final result, which is the sum of gear ratios
 print(gear_ratios_sum)
 
 # Solution: 72514855
